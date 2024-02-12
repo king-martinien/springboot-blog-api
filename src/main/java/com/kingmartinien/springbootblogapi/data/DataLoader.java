@@ -6,6 +6,7 @@ import com.kingmartinien.springbootblogapi.repository.PostRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -21,15 +22,14 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        System.out.println("COMMANDLINE RUNNER");
-
 //        Create 50 rows of post in the database
         List<Post> posts = IntStream.rangeClosed(1, 50)
                 .mapToObj(i -> new Post(
                         null,
                         faker.bothify(faker.book().title() + "????"),
                         faker.bothify(faker.lorem().sentence() + "????"),
-                        faker.lorem().paragraph(2)
+                        faker.lorem().paragraph(2),
+                        new HashSet<>()
 
                 ))
                 .toList();

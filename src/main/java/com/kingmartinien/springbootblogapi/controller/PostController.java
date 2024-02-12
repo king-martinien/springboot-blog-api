@@ -56,7 +56,7 @@ public class PostController {
     }
 
     @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePostById(@PathVariable(name = "id") Long id) {
         postService.deletePostById(id);
     }
