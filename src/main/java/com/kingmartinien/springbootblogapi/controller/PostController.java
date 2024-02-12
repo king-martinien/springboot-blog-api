@@ -3,6 +3,8 @@ package com.kingmartinien.springbootblogapi.controller;
 import com.kingmartinien.springbootblogapi.dto.PostDto;
 import com.kingmartinien.springbootblogapi.mapper.PostMapper;
 import com.kingmartinien.springbootblogapi.service.PostService;
+import com.kingmartinien.springbootblogapi.utils.AppConstants;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,16 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public List<PostDto> getAllPosts() {
         return postMapper.toDtoList(postService.getAllPosts());
+    }
+
+    @GetMapping("page")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<PostDto> getAllPosts(
+            @RequestParam(name = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int page,
+            @RequestParam(name = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int size,
+            @RequestParam(name = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(name = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir) {
+        return postService.getAllPosts(page, size, sortBy, sortDir).map(postMapper::toDto);
     }
 
     @GetMapping("{id}")

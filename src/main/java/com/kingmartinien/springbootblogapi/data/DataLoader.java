@@ -20,23 +20,20 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         System.out.println("COMMANDLINE RUNNER");
 
 //        Create 50 rows of post in the database
         List<Post> posts = IntStream.rangeClosed(1, 50)
                 .mapToObj(i -> new Post(
                         null,
-                        // faker post title ( must be unique )
-                        faker.bothify("Post Title ????"),
-                        // faker post description
-                        faker.bothify("Post Description ????").concat(faker.letterify("????")),
-                        // faker post content ( must be a paragraph with 2 or more sentences)
+                        faker.bothify(faker.book().title() + "????"),
+                        faker.bothify(faker.lorem().sentence() + "????"),
                         faker.lorem().paragraph(2)
 
                 ))
                 .toList();
-        postRepository.saveAll(posts);
+//        postRepository.saveAll(posts);
 
     }
 }

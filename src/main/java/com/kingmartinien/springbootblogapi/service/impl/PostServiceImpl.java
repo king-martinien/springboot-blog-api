@@ -4,6 +4,10 @@ import com.kingmartinien.springbootblogapi.entity.Post;
 import com.kingmartinien.springbootblogapi.exception.ResourceNotFoundException;
 import com.kingmartinien.springbootblogapi.repository.PostRepository;
 import com.kingmartinien.springbootblogapi.service.PostService;
+import org.hibernate.query.SortDirection;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +29,14 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getAllPosts() {
         return postRepository.findAll();
+    }
+
+    @Override
+    public Page<Post> getAllPosts(int page, int size, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() :
+                Sort.by(sortBy).descending();
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        return postRepository.findAll(pageRequest);
     }
 
     @Override
