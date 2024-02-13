@@ -1,0 +1,17 @@
+package com.kingmartinien.springbootblogapi.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.Instant;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ErrorDto {
+    private int errorCode;
+    private String message;
+    private Instant datetime;
+    private String details;
+}

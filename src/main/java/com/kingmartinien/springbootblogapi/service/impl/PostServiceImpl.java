@@ -4,7 +4,6 @@ import com.kingmartinien.springbootblogapi.entity.Post;
 import com.kingmartinien.springbootblogapi.exception.ResourceNotFoundException;
 import com.kingmartinien.springbootblogapi.repository.PostRepository;
 import com.kingmartinien.springbootblogapi.service.PostService;
-import org.hibernate.query.SortDirection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
