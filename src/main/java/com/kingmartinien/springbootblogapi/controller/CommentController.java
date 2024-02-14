@@ -3,6 +3,7 @@ package com.kingmartinien.springbootblogapi.controller;
 import com.kingmartinien.springbootblogapi.dto.CommentDto;
 import com.kingmartinien.springbootblogapi.mapper.CommentMapper;
 import com.kingmartinien.springbootblogapi.service.CommentService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,8 @@ public class CommentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CommentDto createComment(@PathVariable(name = "postId") Long postId, @RequestBody CommentDto commentDto) {
+    public CommentDto createComment(@PathVariable(name = "postId") Long postId,
+                                    @Valid @RequestBody CommentDto commentDto) {
         return commentMapper.toDto(this.commentService.createComment(postId, commentMapper.toEntity(commentDto)));
     }
 
@@ -42,7 +44,7 @@ public class CommentController {
     @ResponseStatus(HttpStatus.OK)
     public CommentDto updateComment(@PathVariable(name = "postId") Long postId,
                                     @PathVariable(name = "commentId") Long commentId,
-                                    @RequestBody CommentDto commentDto) {
+                                    @Valid @RequestBody CommentDto commentDto) {
         return commentMapper.toDto(commentService.updateComment(postId, commentId, commentMapper.toEntity(commentDto)));
     }
 

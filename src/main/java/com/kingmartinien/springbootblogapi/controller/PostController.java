@@ -4,6 +4,7 @@ import com.kingmartinien.springbootblogapi.dto.PostDto;
 import com.kingmartinien.springbootblogapi.mapper.PostMapper;
 import com.kingmartinien.springbootblogapi.service.PostService;
 import com.kingmartinien.springbootblogapi.utils.AppConstants;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class PostController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostDto createPost(@RequestBody PostDto postDto) {
+    public PostDto createPost(@Valid @RequestBody PostDto postDto) {
         return postMapper.toDto(postService.createPost(postMapper.toEntity(postDto)));
     }
 
@@ -51,7 +52,7 @@ public class PostController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public PostDto updatePost(@PathVariable(name = "id") Long id, @RequestBody PostDto postDto) {
+    public PostDto updatePost(@PathVariable(name = "id") Long id, @Valid @RequestBody PostDto postDto) {
         return postMapper.toDto(postService.updatePost(id, postMapper.toEntity(postDto)));
     }
 
