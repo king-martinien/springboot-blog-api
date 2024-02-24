@@ -7,6 +7,7 @@ import com.kingmartinien.springbootblogapi.utils.AppConstants;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class PostController {
         this.postMapper = postMapper;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PostDto createPost(@Valid @RequestBody PostDto postDto) {
@@ -50,12 +52,14 @@ public class PostController {
         return postMapper.toDto(postService.getPostById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     public PostDto updatePost(@PathVariable(name = "id") Long id, @Valid @RequestBody PostDto postDto) {
         return postMapper.toDto(postService.updatePost(id, postMapper.toEntity(postDto)));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePostById(@PathVariable(name = "id") Long id) {
